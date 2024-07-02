@@ -1,0 +1,17 @@
+.txtlanding {
+    /* font-family: "Ubuntu", sans-serif; */
+    font-family: "Baskervville SC", serif;
+    display: block;
+
+}
+.landing-page {
+    background-image: url('../assets/landing.jpg'); /* Adjust the path as needed */
+    background-size: cover;
+    background-position: center;
+    height: calc(100vh - 56px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    text-align: center;
+}
