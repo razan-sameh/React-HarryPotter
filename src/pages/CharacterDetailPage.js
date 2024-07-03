@@ -1,15 +1,19 @@
 import React from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { useHouses } from '../context/HousesContext';
 
 const CharacterDetailPage = () => {
     const location = useLocation();
     const navigate = useNavigate();
+    const houses = useHouses();
 
     const character = location.state?.character;
 
     const handleHouseClick = (e) => {
         e.stopPropagation();
-        navigate(`/houses/houseIndex`, { state:  character.hogwartsHouse });
+        const house = houses.find(house => character.hogwartsHouse === house.house);
+        console.log('house in CharacterDetailPage', house);
+        navigate(`/houses/houseIndex`, { state: { house } });
     };
 
     if (!character) {
@@ -35,7 +39,7 @@ const CharacterDetailPage = () => {
 
     return (
         <div className="container-fluid">
-            <div className="card m-3" >
+            <div className="card m-3">
                 <div className="row g-0" style={{ maxWidth: '800px' }}>
                     <div className="col-md-4">
                         <img src={character.image} className="card-img-top" alt={character.name} />
@@ -47,7 +51,7 @@ const CharacterDetailPage = () => {
                                 <strong>Nick name: </strong>
                                 {character.nickname}
                             </p>
-                            <p className="card-text" style={{cursor:'pointer',textDecoration:'underline'}} onClick={handleHouseClick}>
+                            <p className="card-text" style={{ cursor: 'pointer', textDecoration: 'underline' }} onClick={handleHouseClick}>
                                 <strong>House: </strong>
                                 {character.hogwartsHouse}
                             </p>
@@ -56,7 +60,7 @@ const CharacterDetailPage = () => {
                                 {character.interpretedBy}
                             </p>
                             <p className="card-text">
-                                <strong>birthdate: </strong>
+                                <strong>Birthdate: </strong>
                                 {character.birthdate}
                             </p>
                             {renderChildren()}

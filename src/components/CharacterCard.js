@@ -1,9 +1,11 @@
 import React from 'react';
-import { fetchData } from '../api';
 import { useNavigate } from 'react-router-dom';
+import { useHouses } from '../context/HousesContext';
 
 const CharacterCard = ({ character }) => {
     const navigate = useNavigate();
+    const houses = useHouses();
+
     const handleCardClick = (e) => {
         e.stopPropagation();
         navigate(`/characters/characterIndex`, { state: { character } });
@@ -11,11 +13,8 @@ const CharacterCard = ({ character }) => {
 
     const handleHouseClick = (e) => {
         e.stopPropagation();
-        fetchData('/houses').then((houses) => {
-            const house = houses.find(house => character.hogwartsHouse === house.house);
-            console.log('house', house);
-            navigate(`/houses/houseIndex`, { state: { house } });
-        });
+        const house = houses.find(house => character.hogwartsHouse === house.house);
+        navigate(`/houses/houseIndex`, { state: { house } });
     };
 
     return (
